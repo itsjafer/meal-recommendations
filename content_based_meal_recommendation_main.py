@@ -76,6 +76,7 @@ def predict(df_predict, user_no):
     return user_rating_food.sort_values(by=[user_no], ascending=False).iloc[0:10]
 
 
+# TODO: cold_start should update online such that we don't have to retrain the entire model
 def cold_start(df_food_data, user_no):
     """ In content-based models, the cold start problem are usually solved in one of the following ways:
             1. The user is recommended the most popular items 
