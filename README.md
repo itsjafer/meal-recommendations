@@ -1,5 +1,7 @@
 # Content-based model proof of concept
 
+This recommender will take user preferences for *recipes* and use these preferences to find the user's preferences for *ingredients*. Using the ingredients, we are then able to search among all recipes which have a similar ingredient matrix to that which the user prefers.
+
 We will use TF-IDF as the measure of similarity between recipes. 83% of text-based recommenders use TF-IDF.
 
 ## Getting Started
