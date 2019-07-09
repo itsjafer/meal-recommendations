@@ -20,7 +20,9 @@ Run the main file. You will be asked for a user id; feel free to give it any num
 
 ```python content_based_meal_recommendation_main.py```
 
-You will be given 3 recipes to rate as a cold-start.
+You will be given 3 recipes to rate as a cold-start. Accepted inputs are `1,0,-1`.
+
+You will then be given a list of recipes that match your preferences best. If you enter your user id again, you can choose to rate more recipes for more accurate results or just retrieve predictions.
 
 ## Requirements
 
@@ -42,7 +44,7 @@ TF-IDF increases proportionally to the number of times a keyword appears but is 
 
 `TF-IDF = TF * IDF`
 
-## Creating user profiles
+### Creating user profiles
 
 We have:
 1. A list of recipes
@@ -52,7 +54,7 @@ For each ingredient in a recipe, we calculate term frequency normalized: `1/sqrt
 
 The main idea:
 
-1. We convert a user's recipe prefernce into an ingredient preference matrix
+1. We convert a user's recipe preference into an ingredient preference matrix
 2. We compare each recipe's ingredients to the user's ingredient preferences
 3. We calculate a score for each recipe based on this
 

@@ -7,7 +7,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 
 
 def train():
-    """Trains the model on ALL preferences offline
+    """Trains the model on ALL preferences OFFLINE
     
     Returns:
         DataFrame -- The Trained model
