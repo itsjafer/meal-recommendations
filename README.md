@@ -12,7 +12,7 @@ Install python 3.6.3:
 
 Create `content_poc` virtual env:
 
-```pyenv virtual env 3.6.3 content_poc```
+```pyenv virtualenv 3.6.3 content_poc```
 
 Install requirements:
 
