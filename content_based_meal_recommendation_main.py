@@ -69,15 +69,12 @@ def train(df_food_data, user_pref_df, user_id):
 
     # Now we will update the user preferences and save it
     df_user_ratings = pd.DataFrame(columns=['user_id', 'food_id', 'rating'])
-    if (os.path.exists(os.path.join(os.getenv("DATA_SCIENCE_DIR"), 
-                        "content_based_meal_recommendations_poc", "data", "user_preferences.csv"))):
-        df_user_ratings = pd.read_csv(os.path.join(os.getenv("DATA_SCIENCE_DIR"), 
-                                      "content_based_meal_recommendations_poc", "data", "user_preferences.csv"))
+    if (os.path.exists("data/user_preferences.csv")):
+        df_user_ratings = pd.read_csv("data/user_preferences.csv")
 
     updated_df = df_user_ratings.append(user_pref_df)
 
-    updated_df.to_csv(os.path.join(os.getenv("DATA_SCIENCE_DIR"), 
-                                    "content_based_meal_recommendations_poc", "data", 'user_preferences.csv'), index=False)
+    updated_df.to_csv('data/user_preferences.csv', index=False)
 
     user_pref_df = updated_df.loc[updated_df['user_id'] == user_id]
     user_pref_df = user_pref_df.astype(int)
@@ -101,15 +98,12 @@ def train(df_food_data, user_pref_df, user_id):
 
     # If the model doesn't yet exist, we will create it
     model = pd.DataFrame()
-    if (os.path.exists(os.path.join(os.getenv("DATA_SCIENCE_DIR"), 
-                        "content_based_meal_recommendations_poc", "data", "tfidf_model.pkl"))):
-        model = pd.read_pickle(os.path.join(os.getenv("DATA_SCIENCE_DIR"), 
-                                "content_based_meal_recommendations_poc", "data", 'tfidf_model.pkl'))
+    if (os.path.exists("data/tfidf_model.pkl")):
+        model = pd.read_pickle("data/tfidf_model.pkl")
     
     model[int(user_id)] = df_predict
     
-    with open(os.path.join(os.getenv("DATA_SCIENCE_DIR"), 
-                           "content_based_meal_recommendations_poc", "data", 'tfidf_model.pkl'), 'wb') as f:
+    with open(os.path.join("data/tfidf_model.pkl"), 'wb') as f:
         pickle.dump(model, f)
 
     print('Finished training model!\n')
@@ -118,21 +112,18 @@ def train(df_food_data, user_pref_df, user_id):
 if __name__ == "__main__":
 
     # Load data
-    df_food_data = pd.read_json(os.path.join(os.getenv("DATA_SCIENCE_DIR"), 
-                                        "content_based_meal_recommendations_poc", "data", "train.json"))
+    df_food_data = pd.read_json("data/train.json")
     df_food_data.set_index('id', inplace=True)
     df_food_data = df_food_data.head(1000)
 
     # Get preferences
-    if (not os.path.exists(os.path.join(os.getenv("DATA_SCIENCE_DIR"), 
-                                        "content_based_meal_recommendations_poc", "data", "user_preferences.csv"))):
+    if (not os.path.exists("data/user_preferences.csv")):
         user_id = input("\nPlease enter your user id\n")
         print(cold_start(df_food_data.sample(n=3), df_food_data, int(user_id)))
 
     while True:
         # Load the model (in case changes have been made)
-        df_predict = pd.read_pickle(os.path.join(os.getenv("DATA_SCIENCE_DIR"), 
-                                        "content_based_meal_recommendations_poc", "data", 'tfidf_model.pkl'))
+        df_predict = pd.read_pickle("data/tfidf_model.pkl")
 
         user_id = input("\nPlease enter your user id\n")
         if user_id.isnumeric():
