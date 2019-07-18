@@ -42,6 +42,7 @@ def cold_start(sample_data, df_food_data, user_no):
     for index, row in sample_data.iterrows():
         print(row)
         rating = input("\nWhat do you think of the recipe above? 1 = like, 0 = neutral, -1 = dislike\n")
+        print("---------------------------------------------------------------------")
         df_user_ratings = df_user_ratings.append({'rating': int(rating), 'food_id': int(index), 'user_id':int(user_no)}, ignore_index=True)
 
     df_predict = train(df_food_data, df_user_ratings, int(user_no))
